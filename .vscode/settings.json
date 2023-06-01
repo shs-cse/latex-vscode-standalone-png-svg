@@ -1,0 +1,103 @@
+{
+    "latex-workshop.latex.tools": [
+        {
+            "name": "latexmk (pdf)",
+            "command": "latexmk",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-pdf",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        { // doesn't work... 
+            "name": "latexmk (svg)",
+            "command": "latexmk",
+            "args": [
+                "-file-line-error",
+                "-dvi",
+                "-outdir=%OUTDIR%",
+                "-pdflatex='pdflatex %O -file-line-error -output-format=dvi \"\\PassOptionsToClass{dvisvgm}{standalone}\\input{%S}\"'",
+                "%DOCFILE%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "pdflatex (svg)",
+            "command": "pdflatex",
+            "args": [
+                "-file-line-error",
+                "-output-format=dvi",
+                "\\PassOptionsToClass{dvisvgm}{standalone}\\input{%DOC%}"
+            ]
+        },
+        {
+            "name": "pdflatex (png)",
+            "command": "pdflatex",
+            "args": [
+                "-shell-escape",
+                "-file-line-error",
+                "-output-format=dvi",
+                "\\PassOptionsToClass{convert={density=1200}}{standalone}\\input{%DOC%}"
+            ]
+        },
+        {
+            "name": "dvisvgm (with fonts)",
+            "command": "dvisvgm",
+            "args": [
+                "--font-format=woff",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "dvisvgm (no fonts)",
+            "command": "dvisvgm",
+            "args": [
+                "--no-fonts",
+                "%DOC%"
+            ]
+        }
+    ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "pdf + svg + png",
+            "tools": [
+                "pdflatex (svg)",
+                "dvisvgm (no fonts)",
+                "pdflatex (png)",
+                "latexmk (pdf)",
+            ]
+        }
+    ],
+    "svg.preview.background": "dark-transparent",
+    "latex-workshop.latex.clean.fileTypes": [
+        "*.dvi",
+        "*.ps",
+        "*.aux",
+        "*.bbl",
+        "*.blg",
+        "*.idx",
+        "*.ind",
+        "*.lof",
+        "*.lot",
+        "*.out",
+        "*.toc",
+        "*.acn",
+        "*.acr",
+        "*.alg",
+        "*.glg",
+        "*.glo",
+        "*.gls",
+        "*.fls",
+        "*.log",
+        "*.fdb_latexmk",
+        "*.snm",
+        "*.synctex(busy)",
+        "*.synctex.gz(busy)",
+        "*.nav",
+        "*.vrb"
+    ]
+}
