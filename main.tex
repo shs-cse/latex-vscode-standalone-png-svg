@@ -1,0 +1,62 @@
+\documentclass[margin=0pt]{standalone} % svg
+% \documentclass[convert, margin=0pt]{standalone} % png, don't forget to change latex compiler
+
+\usepackage{anyfontsize, amssymb, amsmath}
+% \usepackage[shortlabels]{enumitem}
+\usepackage[siunitx, american, RPvoltages]{circuitikz}
+\sisetup{parse-numbers=false}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[many]{tcolorbox}
+
+% short-hand for resistor units, e.g. 
+% in circuitikz: 1<\MO>, 2<\mA>, 3<\kV>, 4<\uF>, 5<\nH>, 6<\C> 
+% in math-mode: \qty{1}{\MO}
+\DeclareSIUnit{\mO}{\milli\ohm}
+\DeclareSIUnit{\kO}{\kilo\ohm}
+\DeclareSIUnit{\MO}{\mega\ohm}
+
+\usepackage{xcolor}
+% \color{red}
+
+
+
+
+\def\cmw{6} % center mesh width
+\def\rmh{7} % right mesh height
+\def\rmw{2} % right mesh width
+\def\tmh{2} % top mesh height
+\def\lmw{2} % left mesh height
+
+\begin{document}
+% \begin{center}
+\begin{circuitikz}[scale=0.7, transform shape]
+    \draw (0,0) node[ground]{}
+    % center bottom mesh
+    to[V, l=14<\V>, invert, *-*] ++(left:\cmw)
+    to[R, l=12<\kO>] ++(up:\rmh/2)
+    to[R, l=3.5<\kO>, *-*] ++(right:\cmw)
+    to[R, l=500<\ohm>] ++(down:\rmh/2)
+    % right mesh
+    -- ++(right:\rmw)
+    -- ++(up:\rmh)
+    -- ++(left:\rmw)
+    % center mesh
+    to[I, l=8<\mA>] ++(down:\rmh/2)
+    ++(left:\cmw)
+    -- ++(up:\rmh/2)
+    to[I, l=1<\mA>, invert] ++(right:\cmw/2)
+    to[V, l=3<\V>, invert, -*] ++(right:\cmw/2)
+    % top mesh
+    -- ++(up:\tmh)
+    to[R, l_=4<\kO>] ++(left:\cmw+\lmw)
+    -- ++(down:\tmh)
+    % left mesh
+    to[short, *-*] ++(right:\lmw)
+    ++(left:\lmw)
+    to[R, l_=6<\kO>, f<_=$I_x$, flow/distance=0.8] ++(down:\rmh)
+    -- ++(right:\lmw)
+    ;
+\end{circuitikz}
+% \end{center}
+\end{document}
